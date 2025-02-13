@@ -1,4 +1,4 @@
-const apiEndpoint = "http://20.166.251.101:8080/api/tasks";
+const apiEndpoint = "https://todo-app-ventura.happycliff-3b132cd6.northeurope.azurecontainerapps.io/api/tasks";
 
 $(document).ready(function () {
   // Charger les tâches au démarrage
