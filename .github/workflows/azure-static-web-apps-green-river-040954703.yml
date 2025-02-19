@@ -19,6 +19,19 @@ jobs:
         with:
           submodules: true
           lfs: false
+      - name: Vérifier la présence de index.html
+        run: |
+          if [ -f ./todo-app/src/frontend/index.html ]; then
+            echo "Le fichier index.html existe"
+          else
+            echo "Erreur : index.html n’existe pas!"
+            exit 1
+          fi
+      - name: Setup Node.js
+      uses: actions/setup-node@v2
+      with:
+        node-version: '14'  # Remplacez '14' par la version Node.js que vous souhaitez utiliser
+      
       - name: Build And Deploy
         id: builddeploy
         uses: Azure/static-web-apps-deploy@v1
