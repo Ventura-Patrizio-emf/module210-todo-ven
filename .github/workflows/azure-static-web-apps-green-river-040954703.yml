@@ -27,16 +27,6 @@ jobs:
             echo "Erreur : index.html n’existe pas!"
             exit 1
           fi
-      - name: Setup Node.js
-      uses: actions/setup-node@v2
-      with:
-        node-version: '14'  # Remplacez '14' par la version Node.js que vous souhaitez utiliser
-      - name: Exécuter Lighthouse sur le build
-        uses: foo-software/lighthouse-check-action@master
-        with:
-          urls: "https://210-web-app.patrizioventura.emf-informatique.ch"
-          outputDirectory: "./lhci_reports"
-          uploadArtifacts: true
       - name: Build And Deploy
         id: builddeploy
         uses: Azure/static-web-apps-deploy@v1
@@ -50,6 +40,16 @@ jobs:
           api_location: "" # Api source code path - optional
           output_location: "." # Built app content directory - optional
           ###### End of Repository/Build Configurations ######
+      - name: Setup Node.js
+      uses: actions/setup-node@v2
+      with:
+        node-version: '14'  # Remplacez '14' par la version Node.js que vous souhaitez utiliser
+      - name: Exécuter Lighthouse sur le build
+        uses: foo-software/lighthouse-check-action@master
+        with:
+          urls: "https://210-web-app.patrizioventura.emf-informatique.ch"
+          outputDirectory: "./lhci_reports"
+          uploadArtifacts: true
 
   close_pull_request_job:
     if: github.event_name == 'pull_request' && github.event.action == 'closed'
