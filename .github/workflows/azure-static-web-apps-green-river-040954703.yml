@@ -31,7 +31,12 @@ jobs:
       uses: actions/setup-node@v2
       with:
         node-version: '14'  # Remplacez '14' par la version Node.js que vous souhaitez utiliser
-      
+      - name: Exécuter Lighthouse sur le build
+        uses: foo-software/lighthouse-check-action@master
+        with:
+          urls: "https://210-web-app.patrizioventura.emf-informatique.ch"
+          outputDirectory: "./lhci_reports"
+          uploadArtifacts: true
       - name: Build And Deploy
         id: builddeploy
         uses: Azure/static-web-apps-deploy@v1
