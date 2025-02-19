@@ -40,10 +40,6 @@ jobs:
           api_location: "" # Api source code path - optional
           output_location: "." # Built app content directory - optional
           ###### End of Repository/Build Configurations ######
-      - name: Setup Node.js
-      uses: actions/setup-node@v2
-      with:
-        node-version: '14'  # Remplacez '14' par la version Node.js que vous souhaitez utiliser
       - name: Exécuter Lighthouse sur le build
         uses: foo-software/lighthouse-check-action@master
         with:
