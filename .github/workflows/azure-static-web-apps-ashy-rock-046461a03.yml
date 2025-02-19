@@ -19,6 +19,14 @@ jobs:
         with:
           submodules: true
           lfs: false
+      - name: Vérifier la présence de index.html
+        run: |
+          if [ -f ./todo-app/src/frontend/index.html ]; then
+            echo "Le fichier index.html existe"
+          else
+            echo "Erreur : index.html n’existe pas!"
+            exit 1
+          fi
       - name: Build And Deploy
         id: builddeploy
         uses: Azure/static-web-apps-deploy@v1
@@ -32,6 +40,13 @@ jobs:
           api_location: "" # Api source code path - optional
           output_location: "." # Built app content directory - optional
           ###### End of Repository/Build Configurations ######
+      - name: Audit URLs using Lighthouse
+        uses: treosh/lighthouse-ci-action@v12
+        with:
+          urls: |
+            https://https://210-web-app.patrizioventura.emf-informatique.ch/
+          uploadArtifacts: true # save results as an action artifacts
+          temporaryPublicStorage: true # upload lighthouse report to the temporary storage
 
   close_pull_request_job:
     if: github.event_name == 'pull_request' && github.event.action == 'closed'
