@@ -7,7 +7,7 @@ on:
 
 env:
   REGISTRY: ${{ secrets.EXO_REGISTRY_URL }}
-  IMAGE_NAME: "backend-app"
+  IMAGE_NAME: "todo-app-ventura"
 
 jobs:
   build-and-push:
