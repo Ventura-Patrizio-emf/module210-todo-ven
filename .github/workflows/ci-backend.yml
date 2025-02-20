@@ -1,26 +1,32 @@
-name: Build and Push Docker Image
-
+name: Build and save my Docker image to a regitry
+ 
 on:
   push:
+    paths:
+      - 'backend/**'
+      - 'frontend/**'
     branches:
-      - main  # Exécute le workflow à chaque push sur main
-
+      - main  # Déclenchement lorsque le code est poussé sur main
+ 
 env:
-  REGISTRY: "exo.container-registry.com"
-  IMAGE_NAME: "todo-app-ventura"
-
+  REG_NAME: "exo.container-registry.com" # Nom du registy
+  IMAGE_NAME: "todo-app-ventura" # Nom de votre image
+ 
 jobs:
-  build-and-push:
+  build-and-deploy:
     runs-on: ubuntu-latest
-
+ 
     steps:
       - name: Checkout repository
         uses: actions/checkout@v3
-
+ 
       - name: Build Docker Image
-        run: |
-          docker build -t $REGISTRY/c213-emf/$IMAGE_NAME:latest .
-
-      - name: Push Docker Image to Registry
-        run: |
-          docker push $REGISTRY/c213-emf/$IMAGE_NAME:latest
+        run: docker build -t ${{ env.IMAGE_NAME }}:latest ./backend
+ 
+      - name: Tag Docker Image
+        run: docker tag ${{ env.IMAGE_NAME }}:latest ${{ env.REG_NAME }}/c213-emf/${{ env.IMAGE_NAME }}:latest
+ 
+      - name: Push Docker Image
+        run: docker push ${{ env.REG_NAME }}/c213-emf/${{ env.IMAGE_NAME }}:latest
+ 
+ 
