@@ -6,7 +6,7 @@ on:
       - main  # Exécute le workflow à chaque push sur main
 
 env:
-  REGISTRY: ${{ secrets.EXO_REGISTRY_URL }}
+  REGISTRY: "exo.container-registry.com"
   IMAGE_NAME: "todo-app-ventura"
 
 jobs:
